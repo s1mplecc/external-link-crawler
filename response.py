@@ -10,7 +10,7 @@ class ResponseCode(Enum):
 class Response:
     def __init__(self, data='', code=ResponseCode.SUCCESS, msg="ok"):
         self.data = data
-        self.msg = msg
+        self.msg = str(msg)
         self.code = code.value
 
     def json(self):
