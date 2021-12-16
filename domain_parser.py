@@ -35,15 +35,16 @@ def _parse_css_scripts(soup):
     return css + script
 
 
+def _sort_and_deduplicate(links):
+    return sorted(list(set([urlparse(_).netloc for _ in links if 'http' in _])))
+
+
 def parse_domains(url):
     soup = BeautifulSoup(_fetch_html(url), 'html.parser')
 
-    hrefs = _parse_hrefs(soup)
-    img_srcs = _parse_img_srcs(soup)
-    css_scripts = _parse_css_scripts(soup)
-    href_domains = sorted(list(set([urlparse(_).netloc for _ in hrefs if 'http' in _])))
-    img_domains = sorted(list(set([urlparse(_).netloc for _ in img_srcs if 'http' in _])))
-    css_scripts_domains = sorted(list(set([urlparse(_).netloc for _ in css_scripts if 'http' in _])))
+    href_domains = _sort_and_deduplicate(_parse_hrefs(soup))
+    img_domains = _sort_and_deduplicate(_parse_img_srcs(soup))
+    css_scripts_domains = _sort_and_deduplicate(_parse_css_scripts(soup))
 
     return {
         'href_domains': href_domains,
