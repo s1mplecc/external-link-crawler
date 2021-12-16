@@ -22,7 +22,9 @@ def _extract_links(soup, tag='a', attr='href'):
 
 
 def _parse_hrefs(soup):
-    return _extract_links(soup, 'a', 'href')
+    links = _extract_links(soup, 'a', 'href')
+    print(links)
+    return links
 
 
 def _parse_img_srcs(soup):
@@ -36,7 +38,7 @@ def _parse_css_scripts(soup):
 
 
 def _sort_and_deduplicate(links):
-    return sorted(list(set([urlparse(_).netloc for _ in links if 'http' in _])))
+    return sorted(list(set(filter(lambda _: len(_), [urlparse(_).netloc for _ in links if 'http' in _]))))
 
 
 def parse_domains(url):
