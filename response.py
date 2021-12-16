@@ -8,10 +8,10 @@ class ResponseCode(Enum):
 
 
 class Response:
-    def __init__(self, data='', code=ResponseCode.SUCCESS, msg="ok"):
+    def __init__(self, data=None, code=ResponseCode.SUCCESS, msg="ok"):
         self.data = data
-        self.msg = str(msg)
         self.code = code.value
+        self.msg = f'[{code.name}] {msg}'
 
     def json(self):
         return {
