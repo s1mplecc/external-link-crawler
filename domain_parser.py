@@ -22,9 +22,7 @@ def _extract_links(soup, tag='a', attr='href'):
 
 
 def _parse_hrefs(soup):
-    links = _extract_links(soup, 'a', 'href')
-    print(links)
-    return links
+    return _extract_links(soup, 'a', 'href')
 
 
 def _parse_img_srcs(soup):
