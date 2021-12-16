@@ -8,11 +8,11 @@ from response import Response, ResponseCode
 app = Flask(__name__)
 
 
-@app.route('/domains', methods=['GET'])
-def domains():
+@app.route('/external-link-domains', methods=['GET'])
+def external_link_domains():
     url = request.args.get('url')
     if not urlparse(url).netloc:
-        return Response(code=ResponseCode.BAD_REQUEST, msg='invalid param: url').json()
+        return Response(code=ResponseCode.BAD_REQUEST, msg=f'invalid param url value: {url}').json()
     try:
         return Response(data=parse_domains(url)).json()
     except Exception as e:
