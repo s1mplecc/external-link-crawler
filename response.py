@@ -15,7 +15,7 @@ class Response:
 
     def json(self):
         return {
-            'status': self.code,
-            'msg': self.msg,
+            'code': self.code,
+            'messages': self.msg,
             'data': self.data
         }
