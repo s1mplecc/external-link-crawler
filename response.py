@@ -1,5 +1,7 @@
 from enum import Enum
 
+from flask import jsonify
+
 
 class ResponseCode(Enum):
     SUCCESS = 200
@@ -14,8 +16,8 @@ class Response:
         self.msg = f'[{code.name}] {msg}'
 
     def json(self):
-        return {
+        return jsonify({
             'code': self.code,
             'messages': self.msg,
             'data': self.data
-        }
+        })
