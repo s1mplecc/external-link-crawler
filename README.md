@@ -53,7 +53,7 @@ Step 1：拉取镜像。镜像已提交至 Docker Hub 仓库。
 $ docker pull s1mplecc/external-link-crawer
 ```
 
-也可以手动构建镜像。克隆下项目后，在 Dockerfile 所在目录执行：
+也可以在本地手动构建镜像。克隆下项目后，在 Dockerfile 所在目录执行：
 
 ```shell
 $ docker build -t s1mplecc/external-link-crawer .
