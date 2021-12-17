@@ -1,6 +1,6 @@
 FROM python:3.8-slim
-LABEL description="Docker image with Spark (3.1.2) and Hadoop (3.2.0), based on bitnami/spark:3. \
-For more information, please visit https://github.com/s1mplecc/spark-hadoop-docker."
+LABEL maintainer="s1mplecc <s1mple951205@gmail.com>"
+LABEL description="Website external link crawer, providing Restful API service."
 
 ENV FLASK_WORK_DIR="/root/flask"
 
@@ -11,7 +11,7 @@ WORKDIR $FLASK_WORK_DIR
 COPY . .
 
 RUN pip3 install -r requirements.txt
-RUN pip3 install gunicorn
+RUN pip3 install gunicorn gevent
 RUN chmod +x gunicorn_starter.sh
 
 ENTRYPOINT ["./gunicorn_starter.sh"]
