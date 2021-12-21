@@ -16,7 +16,7 @@
 Step 1：克隆项目。
 
 ```shell
-$ git clone https://github.com/s1mplecc/external-link-crawer.git
+$ git clone https://github.com/s1mplecc/external-link-crawler.git
 ```
 
 Step 2：安装依赖，包括 Flask 和 BeautifulSoup4。建议使用 Virtualenv 局部安装依赖。
@@ -50,19 +50,19 @@ gunicorn --worker-class=gevent --worker-connections=1000 -w 4 -b 0.0.0.0:8000 ap
 Step 1：拉取镜像。镜像已提交至 Docker Hub 仓库。
 
 ```shell
-$ docker pull s1mplecc/external-link-crawer
+$ docker pull s1mplecc/external-link-crawler
 ```
 
 也可以在本地手动构建镜像。克隆下项目后，在 Dockerfile 所在目录执行：
 
 ```shell
-$ docker build -t s1mplecc/external-link-crawer .
+$ docker build -t s1mplecc/external-link-crawler .
 ```
 
 Step 2：启动容器，映射端口。
 
 ```shell
-$ docker run -d -p 5000:8000 --name external-link-crawer s1mplecc/external-link-crawer
+$ docker run -d -p 5000:8000 --name external-link-crawler s1mplecc/external-link-crawler
 ```
 
 ## 请求格式
