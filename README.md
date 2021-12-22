@@ -89,31 +89,31 @@ $ curl -XGET "http://127.0.0.1:5000/external-link-domains?url=https://www.zhihu.
 
 ```json
 {
-    "code": 200,
-    "data": {
-        "css_scripts_domains": [
-            "hm.baidu.com",
-            "static.zhihu.com"
-        ],
-        "css_scripts_domains_size": 2,
-        "href_domains": [
-            "app.mokahr.com",
-            "beian.miit.gov.cn",
-            "tsm.miit.gov.cn",
-            "www.12377.cn",
-            "www.beian.gov.cn",
-            "www.zhihu.com",
-            "zhstatic.zhihu.com",
-            "zhuanlan.zhihu.com"
-        ],
-        "href_domains_size": 8,
-        "img_domains": [
-            "pic2.zhimg.com",
-            "pic3.zhimg.com"
-        ],
-        "img_domains_size": 2
-    },
-    "messages": "[SUCCESS] ok"
+  "code": 200,
+  "data": {
+    "css_scripts_domains": [
+      "https://hm.baidu.com",
+      "https://static.zhihu.com"
+    ],
+    "css_scripts_domains_size": 2,
+    "href_domains": [
+      "http://www.12377.cn",
+      "http://www.beian.gov.cn",
+      "https://app.mokahr.com",
+      "https://beian.miit.gov.cn",
+      "https://tsm.miit.gov.cn",
+      "https://www.zhihu.com",
+      "https://zhstatic.zhihu.com",
+      "https://zhuanlan.zhihu.com"
+    ],
+    "href_domains_size": 8,
+    "img_domains": [
+      "https://pic2.zhimg.com",
+      "https://pic3.zhimg.com"
+    ],
+    "img_domains_size": 2
+  },
+  "messages": "[SUCCESS] ok"
 }
 ```
 
@@ -121,8 +121,8 @@ $ curl -XGET "http://127.0.0.1:5000/external-link-domains?url=https://www.zhihu.
 
 ```json
 {
-    "code": 400,
-    "data": null,
-    "messages": "[BAD_REQUEST] invalid param url value: xyz"
+  "code": 400,
+  "data": null,
+  "messages": "[BAD_REQUEST] invalid param url value: xyz"
 }
 ```
