@@ -36,7 +36,8 @@ def _parse_css_scripts(soup):
 
 
 def _sort_and_deduplicate(links):
-    return sorted(list(set(filter(lambda _: len(_), [urlparse(_).netloc for _ in links if 'http' in _]))))
+    urls = [f'{urlparse(_).scheme}://{urlparse(_).netloc}' for _ in links if 'http' in _]
+    return sorted(list(set(filter(lambda _: 'http' in _, urls))))
 
 
 def parse_domains(url):
