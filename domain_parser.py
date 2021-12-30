@@ -1,3 +1,4 @@
+import ssl
 from urllib import request
 from urllib.parse import urlparse
 
@@ -7,7 +8,8 @@ from bs4 import BeautifulSoup
 def _fetch_html(url, decode='UTF-8'):
     req = request.Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0')
-    with request.urlopen(req) as res:
+    # ignore ssl certificate, using `ssl._create_unverified_context()`
+    with request.urlopen(req, context=(ssl.SSLContext())) as res:
         return res.read().decode(decode)
 
 
