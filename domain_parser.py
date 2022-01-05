@@ -29,7 +29,7 @@ def _parse_hrefs(soup):
 
 
 def _parse_img_srcs(soup):
-    return _extract_links(soup, 'img', 'src')
+    return _extract_links(soup, 'img', 'src') + _extract_links(soup, 'img', 'data-src')
 
 
 def _parse_css_scripts(soup):
@@ -38,8 +38,14 @@ def _parse_css_scripts(soup):
     return css + script
 
 
+def _pre_processing(links):
+    # sina links like "//i3.sinaimg.cn/dy/deco/2013/0305/d.gif", default https
+    sina_img_links = ['https:' + _ for _ in links if _.startswith('//') and urlparse(_).netloc]
+    return list(filter(lambda _: 'http' in _, links)) + sina_img_links
+
+
 def _sort_and_deduplicate(links):
-    urls = [f'{urlparse(_).scheme}://{urlparse(_).netloc}' for _ in links if 'http' in _]
+    urls = [f'{urlparse(_).scheme}://{urlparse(_).netloc}' for _ in _pre_processing(links) if 'http' in _]
     return sorted(list(set(filter(lambda _: 'http' in _, urls))))
 
 
@@ -62,7 +68,6 @@ def parse_domains(url):
     css_scripts_domains = _sort_and_deduplicate(_parse_css_scripts(soup))
 
     return {
-        'total_domains_size': len(href_domains) + len(img_domains) + len(css_scripts_domains),
         'href_domains': href_domains,
         'href_domains_size': len(href_domains),
         'img_domains': img_domains,
