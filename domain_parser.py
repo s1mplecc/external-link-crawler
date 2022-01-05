@@ -3,6 +3,7 @@ from urllib import request
 from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
+from requests_html import HTMLSession
 
 
 def _fetch_html(url, decode='UTF-8'):
@@ -42,14 +43,26 @@ def _sort_and_deduplicate(links):
     return sorted(list(set(filter(lambda _: 'http' in _, urls))))
 
 
+def _parse_domains_by_requests_html(url):
+    r = HTMLSession().get(url)
+    absolute_links = r.html.absolute_links
+    return list(set([f'{urlparse(_).scheme}://{urlparse(_).netloc}' for _ in absolute_links]))
+
+
+def _merge_with_requests_html_parser(url, domains):
+    url_domains = _parse_domains_by_requests_html(url) + domains
+    return _sort_and_deduplicate(url_domains)
+
+
 def parse_domains(url):
     soup = BeautifulSoup(_fetch_html(url), 'html.parser')
 
-    href_domains = _sort_and_deduplicate(_parse_hrefs(soup))
+    href_domains = _merge_with_requests_html_parser(url, _parse_hrefs(soup))
     img_domains = _sort_and_deduplicate(_parse_img_srcs(soup))
     css_scripts_domains = _sort_and_deduplicate(_parse_css_scripts(soup))
 
     return {
+        'total_domains_size': len(href_domains) + len(img_domains) + len(css_scripts_domains),
         'href_domains': href_domains,
         'href_domains_size': len(href_domains),
         'img_domains': img_domains,
